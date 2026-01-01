@@ -1,2 +1,3 @@
-def hello() -> str:
-    return "Hello from termtinty!"
+from .tinty import Tinty
+
+__all__ = ["Tinty"]

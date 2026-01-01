@@ -2,91 +2,91 @@
 
 > **A fluid and lightweight terminal colorizer for Python.**
 
-**TermTinty** (el paquete) te trae a **Tinty** (la herramienta), una librería diseñada para que tu código sea tan elegante como tu terminal. Su filosofía es la simetría y la fluidez.
+**TermTinty** (the package) brings you **Tinty** (the tool), a library designed to make your code as elegant as your terminal. Its philosophy is symmetry and fluidity.
 
 ```python
 from termtinty import Tinty
 ```
 
-## ¿Por qué TermTinty?
+## Why TermTinty?
 
-La mayoría de librerías te obligan a concatenar strings o recordar constantes complejas. **Tinty** rompe ese molde utilizando una **Interfaz Fluida (Fluent Interface)**. Esto no solo es azúcar sintáctico; es una forma de programar que prioriza la legibilidad humana.
+Most libraries force you to concatenate strings or remember complex constants. **Tinty** breaks that mold by using a **Fluent Interface**. This isn't just syntactic sugar; it's a way of programming that prioritizes human readability.
 
-- 🔗 **Fluent Chaining**: Encadena métodos como si escribieras una oración.
-- 🪶 **Ultraligera**: Sin dependencias.
-- 🧹 **Auto-Reset**: El estado se limpia automáticamente.
-- 🧘 **API Zen**: Diseñada para la intuición.
+- 🔗 **Fluent Chaining**: Chain methods as if you were writing a sentence.
+- 🪶 **Ultralight**: No dependencies.
+- 🧹 **Auto-Reset**: State is automatically cleared.
+- 🧘 **Zen API**: Designed for intuition.
 
-## Instalación
+## Installation
 
 ```bash
 pip install termtinty
 ```
 
-## Uso
+## Usage
 
-### El Patrón Simétrico
+### The Symmetric Pattern
 
 ```python
 from termtinty import Tinty
 
-t = Tinty() # Instancia tu pincel
+t = Tinty() # Instantiate your brush
 print(t.CYAN("TermTinty").GREEN(" is ready!"))
 ```
 
 ## 🔗 Deep Dive: The Fluent Chain
 
-El **encadenamiento de métodos** es el corazón de TermTinty. A diferencia de las librerías tradicionales donde sumas cadenas (`+`), aquí *transformas* el flujo de información.
+**Method chaining** is the heart of TermTinty. Unlike traditional libraries where you sum strings (`+`), here you *transform* the flow of information.
 
-**¿Por qué es mejor?**
-1.  **Legibilidad**: Se lee de izquierda a derecha, como el inglés.
-2.  **Menos ruido**: Elimina los operadores `+` y variables intermedias.
-3.  **Contexto**: Agrupo lógicamente los estilos relacionados.
+**Why is it better?**
+1.  **Readability**: Reads left-to-right, like English.
+2.  **Less Noise**: Eliminates `+` operators and intermediate variables.
+3.  **Context**: Logically groups related styles.
 
 ```python
-# Estilo Tradicional (Difícil de leer)
+# Traditional Style (Hard to read)
 # print(Back.RED + Fore.WHITE + "Error:" + Style.RESET_ALL + Fore.YELLOW + " Disk full")
 
-# Estilo TermTinty (Limpio)
+# TermTinty Style (Clean)
 print(t.bgRED().WHITE("Error: ").YELLOW("Disk full")) 
-# (Nota: bgRED es un ejemplo de futura implementación para background)
+# (Note: bgRED has not been implemented but serves as a style example for background colors)
 ```
 
-## 🧠 Filosofía de API: Instancia vs Estático
+## 🧠 API Philosophy: Instance vs Static
 
-Una pregunta común en el diseño de esta librería fue: *¿Por qué `t = Tinty()` y no métodos estáticos como `Tinty.RED()`?*
+A common question during the design of this library was: *Why `t = Tinty()` instead of static methods like `Tinty.RED()`?*
 
-### La Decisión: Orientación a Objetos para Gestión de Estado
-Para lograr un **Chaining** verdadero y seguro, necesitamos "memoria".
+### The Decision: Object-Oriented for State Management
+To achieve true and safe **Chaining**, we need "memory".
 
-*   **Si fuera Estático (`Class.method()`):** No hay memoria entre llamadas. Sería difícil saber cuándo cerrar el color (RESET) o cómo acumular múltiples segmentos (`.RED().BLUE()`) sin devolver objetos extraños.
-*   **Con Instancia (`obj.method()`):** La instancia `t` actúa como un **buffer inteligente**. Acumula tus intenciones y sabe exactamente cuándo limpiarse (Auto-Reset) al imprimirse.
+*   **If Static (`Class.method()`):** There is no memory between calls. It would be hard to know when to close the color (RESET) or how to accumulate multiple segments (`.RED().BLUE()`) without returning strange objects.
+*   **With Instance (`obj.method()`):** The instance `t` acts as a **smart buffer**. It accumulates your intentions and knows exactly when to clean itself (Auto-Reset) when printed.
 
-Esto permite que la API sea poderosa pero invisible. El usuario no gestiona el estado; `Tinty` lo hace.
+This allows the API to be powerful yet invisible. The user doesn't manage state; `Tinty` does.
 
-## ⚔️ Competencia y Comparativa
+## ⚔️ Competition and Comparison
 
-¿Cómo se posiciona TermTinty frente a los gigantes?
+How does TermTinty stack up against the giants?
 
-| Característica | TermTinty | Colorama | Termcolor | Rich |
+| Feature | TermTinty | Colorama | Termcolor | Rich |
 | :--- | :---: | :---: | :---: | :---: |
-| **Sintaxis** | Fluent (`.RED()`) | Constantes (`Fore.RED`) | Funcional (`colored()`) | Objetos/Tags |
-| **Chaining** | **Nativo y Central** | Manual (concatenación) | Anidado (difícil) | Via Tags |
-| **Auto-Reset** | **Sí (Automático)** | Requiere `autoreset=True` | Sí | Sí |
-| **Peso** | 🪶 Pluma | Ligero | Ligero | Pesado (Completo) |
-| **Enfoque** | **DX (Developer Exp)** | Compatibilidad Win | Funcional | UI Framework |
+| **Syntax** | Fluent (`.RED()`) | Constants (`Fore.RED`) | Functional (`colored()`) | Objects/Tags |
+| **Chaining** | **Native & Core** | Manual (concatenation) | Nested (difficult) | Via Tags |
+| **Auto-Reset** | **Yes (Automatic)** | Requires `autoreset=True` | Yes | Yes |
+| **Weight** | 🪶 Feather | Light | Light | Heavy (Feature-rich) |
+| **Focus** | **DX (Developer Exp)** | Win Compatibility | Functional | UI Framework |
 
-**TermTinty** es para quienes quieren la potencia de *Rich* en la sintaxis, pero la ligereza de *Colorama* en el peso.
+**TermTinty** is for those who want the syntax power of *Rich* but the lightness of *Colorama*.
 
-## Desarrollo
+## Development
 
-Estructura del proyecto:
+Project structure:
 
 ```text
 termtinty/
 ├── termtinty/      # Source Code
 │   ├── __init__.py
-│   └── text_colored.py
+│   └── tinty.py
 ├── tests/          # Unit Tests
 └── pyproject.toml
 ```
@@ -99,12 +99,11 @@ uv run pytest -vv
 
 ---
 
-## 🏛️ Historia y Alternativas de Nombre
+## 🏛️ History and Naming Alternatives
 
-Durante la fase de concepción (Branding), se evaluaron múltiples identidades. Estas alternativas reflejan diferentes facetas de lo que TermTinty llegó a ser:
+During the conception phase (Branding), multiple identities were evaluated. These alternatives reflect different facets of what TermTinty came to be:
 
-1.  **ChromaFlow**: *("El Técnico")* - Enfatizaba el "flujo" continuo de colores. Se descartó por sonar demasiado a herramienta de procesamiento de video.
-2.  **ChromaChain**: *("El Estructural")* - Describía literalmente la arquitectura de software.
-3.  **Iris**: *("El Mitológico")* - Referencia a la mensajera de los dioses. Descartado por colisión de nombres en PyPI.
-4.  **Tinty**: *("El Elegido")* - Captura la esencia: pequeño, amigable y hace una sola cosa bien (dar tinte).
-```
+1.  **ChromaFlow**: *("The Technician")* - Emphasized the continuous "flow" of colors. Discarded for sounding too much like a video processing tool.
+2.  **ChromaChain**: *("The Structural")* - Literally described the software architecture.
+3.  **Iris**: *("The Mythological")* - Reference to the messenger of the gods. Discarded due to PyPI name collision.
+4.  **Tinty**: *("The Chosen One")* - Captures the essence: small, friendly, and does one thing well (gives tint).

@@ -1,7 +1,7 @@
 import unittest
 import re
 from termtinty.color import Color
-from termtinty.text_colored import Tinty
+from termtinty.tinty import Tinty
 
 class TestStrColor(unittest.TestCase):
 
@@ -9,7 +9,7 @@ class TestStrColor(unittest.TestCase):
         self.color = Tinty()
 
     def test_single_colors(self):
-        """Verifica que cada color individual genere el código ANSI correcto"""
+        """Verifies that each individual color generates the correct ANSI code"""
         colors = {
             "BLACK": Color.BLACK,
             "RED": Color.RED,
@@ -26,50 +26,50 @@ class TestStrColor(unittest.TestCase):
             method = getattr(c, method_name)
             method("Test")
             output = str(c)
-            # Verifica que el código ANSI esté presente
+            # Verify ANSI code is present
             self.assertIn(ansi_code, output)
-            # Verifica que RESET esté al final
+            # Verify RESET is at the end
             self.assertTrue(output.endswith(Color.RESET))
-            # Verifica que el texto visible sea correcto
+            # Verify visible text is correct
             visible_text = re.sub(r'\x1b\[[0-9;]*m', '', output)
             self.assertEqual(visible_text, "Test")
-            # self.text debe resetearse después de str()
+            # self.text should be reset after str()
             self.assertEqual(c.text, "")
 
     def test_chain_colors(self):
-        """Verifica encadenamiento de colores y reset"""
+        """Verifies method chaining and reset"""
         self.color.YELLOW("Hola").BLUE(" Mundo").RED("!")
         output = str(self.color)
-        # Verifica que todos los códigos ANSI estén presentes
+        # Verify all ANSI codes are present
         self.assertIn(Color.YELLOW, output)
         self.assertIn(Color.BLUE, output)
         self.assertIn(Color.RED, output)
-        # Verifica que RESET esté al final
+        # Verify RESET is at the end
         self.assertTrue(output.endswith(Color.RESET))
-        # Texto visible correcto
+        # Correct visible text
         visible_text = re.sub(r'\x1b\[[0-9;]*m', '', output)
         self.assertEqual(visible_text, "Hola Mundo!")
-        # self.text debe resetearse
+        # self.text should be reset
         self.assertEqual(self.color.text, "")
 
     def test_repr(self):
-        """Verifica __repr__ sin reset"""
+        """Verifies __repr__ without reset"""
         self.color.GREEN("Test")
         repr_output = repr(self.color)
-        # __repr__ devuelve text sin reset
+        # __repr__ returns text without reset
         self.assertEqual(repr_output, Color.GREEN + "Test")
-        # self.text aún no se ha reseteado
+        # self.text has not been reset yet
         self.assertEqual(self.color.text, Color.GREEN + "Test")
-        # Después de str(), se resetea
+        # After str(), it resets
         _ = str(self.color)
         self.assertEqual(self.color.text, "")
 
     def test_reset_behavior(self):
-        """Verifica que text se resetea correctamente después de str() y nuevos colores se concatenan"""
+        """Verifies text resets correctly after str() and new color concatenations"""
         self.color.CYAN("1").MAGENTA("2")
         _ = str(self.color)
         self.assertEqual(self.color.text, "")
-        # Nuevo color después de reset
+        # New color after reset
         self.color.BLACK("3")
         self.assertEqual(self.color.text, Color.BLACK + "3")
 
