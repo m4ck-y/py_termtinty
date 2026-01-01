@@ -91,7 +91,11 @@ termtinty/
 └── pyproject.toml
 ```
 
-Tests: `python -m unittest discover test`
+Tests:
+```bash
+uv add --dev pytest
+uv run pytest -vv
+```
 
 ---
 

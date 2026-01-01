@@ -1,6 +1,6 @@
 import unittest
 import re
-from termtinty.color import enum_color
+from termtinty.color import Color
 from termtinty.text_colored import Tinty
 
 class TestStrColor(unittest.TestCase):
@@ -11,14 +11,14 @@ class TestStrColor(unittest.TestCase):
     def test_single_colors(self):
         """Verifica que cada color individual genere el código ANSI correcto"""
         colors = {
-            "BLACK": enum_color.BLACK,
-            "RED": enum_color.RED,
-            "GREEN": enum_color.GREEN,
-            "YELLOW": enum_color.YELLOW,
-            "BLUE": enum_color.BLUE,
-            "MAGENTA": enum_color.MAGENTA,
-            "CYAN": enum_color.CYAN,
-            "RESET": enum_color.RESET,
+            "BLACK": Color.BLACK,
+            "RED": Color.RED,
+            "GREEN": Color.GREEN,
+            "YELLOW": Color.YELLOW,
+            "BLUE": Color.BLUE,
+            "MAGENTA": Color.MAGENTA,
+            "CYAN": Color.CYAN,
+            "RESET": Color.RESET,
         }
 
         for method_name, ansi_code in colors.items():
@@ -29,7 +29,7 @@ class TestStrColor(unittest.TestCase):
             # Verifica que el código ANSI esté presente
             self.assertIn(ansi_code, output)
             # Verifica que RESET esté al final
-            self.assertTrue(output.endswith(enum_color.RESET))
+            self.assertTrue(output.endswith(Color.RESET))
             # Verifica que el texto visible sea correcto
             visible_text = re.sub(r'\x1b\[[0-9;]*m', '', output)
             self.assertEqual(visible_text, "Test")
@@ -41,11 +41,11 @@ class TestStrColor(unittest.TestCase):
         self.color.YELLOW("Hola").BLUE(" Mundo").RED("!")
         output = str(self.color)
         # Verifica que todos los códigos ANSI estén presentes
-        self.assertIn(enum_color.YELLOW, output)
-        self.assertIn(enum_color.BLUE, output)
-        self.assertIn(enum_color.RED, output)
+        self.assertIn(Color.YELLOW, output)
+        self.assertIn(Color.BLUE, output)
+        self.assertIn(Color.RED, output)
         # Verifica que RESET esté al final
-        self.assertTrue(output.endswith(enum_color.RESET))
+        self.assertTrue(output.endswith(Color.RESET))
         # Texto visible correcto
         visible_text = re.sub(r'\x1b\[[0-9;]*m', '', output)
         self.assertEqual(visible_text, "Hola Mundo!")
@@ -57,9 +57,9 @@ class TestStrColor(unittest.TestCase):
         self.color.GREEN("Test")
         repr_output = repr(self.color)
         # __repr__ devuelve text sin reset
-        self.assertEqual(repr_output, enum_color.GREEN + "Test")
+        self.assertEqual(repr_output, Color.GREEN + "Test")
         # self.text aún no se ha reseteado
-        self.assertEqual(self.color.text, enum_color.GREEN + "Test")
+        self.assertEqual(self.color.text, Color.GREEN + "Test")
         # Después de str(), se resetea
         _ = str(self.color)
         self.assertEqual(self.color.text, "")
@@ -71,7 +71,7 @@ class TestStrColor(unittest.TestCase):
         self.assertEqual(self.color.text, "")
         # Nuevo color después de reset
         self.color.BLACK("3")
-        self.assertEqual(self.color.text, enum_color.BLACK + "3")
+        self.assertEqual(self.color.text, Color.BLACK + "3")
 
 if __name__ == "__main__":
     unittest.main()
