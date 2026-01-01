@@ -1,4 +1,5 @@
 from .color import enum_color
+from typing import Self
 
 
 class Tinty:
@@ -6,35 +7,35 @@ class Tinty:
     def __init__(self):
         self.text = ""
 
-    def BLACK(self, text:str) -> "Tinty":
+    def BLACK(self, text: str) -> Self:
         self.text += enum_color.BLACK + text
         return self
     
-    def RED(self, text:str) -> "Tinty":
+    def RED(self, text: str) -> Self:
         self.text += enum_color.RED + text
         return self
     
-    def GREEN(self, text:str) -> "Tinty":
+    def GREEN(self, text: str) -> Self:
         self.text += enum_color.GREEN + text
         return self
     
-    def YELLOW(self, text:str) -> "Tinty":
+    def YELLOW(self, text: str) -> Self:
         self.text += enum_color.YELLOW + text
         return self
     
-    def BLUE(self, text:str) -> "Tinty":
+    def BLUE(self, text: str) -> Self:
         self.text += enum_color.BLUE + text
         return self
 
-    def MAGENTA(self, text:str) -> "Tinty":
+    def MAGENTA(self, text: str) -> Self:
         self.text += enum_color.MAGENTA + text
         return self
 
-    def CYAN(self, text:str) -> "Tinty":
+    def CYAN(self, text: str) -> Self:
         self.text += enum_color.CYAN + text
         return self
 
-    def RESET(self, text:str) -> "Tinty":
+    def RESET(self, text: str) -> Self:
         self.text += enum_color.RESET + text
         return self
     
