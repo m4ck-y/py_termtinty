@@ -78,6 +78,15 @@ How does TermTinty stack up against the giants?
 
 **TermTinty** is for those who want the syntax power of *Rich* but the lightness of *Colorama*.
 
+## 🚀 Roadmap / TODO
+
+We are actively working on expanding TermTinty. Here is what's coming next:
+
+- [ ] **Background Colors**: Methods like `.bgRED()`, `.bgBLUE()`, etc.
+- [ ] **Text Styles**: Support for **BOLD**, *ITALIC*, <u>UNDERLINE</u>, etc.
+- [ ] **Mixins & Custom Combinations**: Create your own reusable styles (e.g., `WarningStyle = t.bgYELLOW().RED().BOLD()`).
+- [ ] **RGB / TrueColor**: Support for 16 million colors.
+
 ## Development
 
 Project structure:
@@ -95,6 +104,21 @@ Tests:
 ```bash
 uv add --dev pytest
 uv run pytest -vv
+```
+
+### Publishing
+
+To develop locally, build, and publish:
+
+```bash
+# Install in editable mode
+uv pip install -e .
+
+# Build the package
+uv build
+
+# Publish to PyPI (requires API Token)
+uv publish
 ```
 
 ---
